@@ -1,0 +1,27 @@
+rm()
+setwd("C:/Users/vijay/Desktop/Deo_virus")
+hellen <- read.csv("hellen.csv")
+attach(hellen)
+names(hellen)
+hellen$asine_sev<-asin(sqrt(hellen$Severity/100))
+hellen$asine_inc<-asin(sqrt(hellen$Incidence/100))
+hellen$asine_latent<-asin(sqrt(hellen$latent/100))
+hist(Severity)
+hist(hellen$asine_sev)
+hist(hellen$asine_inc)
+hist(hellen$asine_latent)
+library(car)
+
+levene.test(asine_sev~ variety, hellen)
+
+bartlett.test((hellen$asine_sev ~ variety,data = hellen)
+
+library(lmerTest)
+library(lme4)
+#For run 2
+RANJANA1 <- lmer(asine_sev ~ Isolates  + Isolates*Variety +(1 |Rep)+(1|Rep:Isolates) , hellen)
+anova(RANJANA1)
+library(predictmeans)
+predictmeans(RANJANA1, "Isolates", adj="BH")
+predictmeans(RANJANA1, "Variety", adj="BH")
+predictmeans(RANJANA1, "Isolates:Variety", adj="BH")

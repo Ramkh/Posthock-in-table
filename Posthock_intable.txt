@@ -1,0 +1,43 @@
+rm()
+setwd("C:/Users/vijay/Desktop/Weed Experiment/Weed article")
+shyam<-read.csv("Irismuck2.csv")
+attach(shyam)
+
+names(shyam)
+library(predictmeans)
+library(lme4)
+shyam$asine_paint<-asin(sqrt(shyam$Paint.removal.Percentage/100))
+hist(shyam$asine_paint)
+hist(shyam$Paint_removed_.)
+library(car)
+
+bartlett.test(shyam$asine_paint ~ Description,data = shyam)
+library(lmerTest)
+library(lme4)
+library(predictmeans)
+#For run 2
+RAM <- lmer(asine_paint ~ Description  +(1 |Row)+(1|Column) , shyam)
+anova(RAM)
+
+predictmeans(RAM, "Description", adj="BH")->hari
+
+hari
+predictmean
+library(knitr)
+kable(hari[1:5],col.names = "Treatment", "Mean", "Group", digits = 2)
+kable(HARI1[1:5], digits = 2)
+kable(predicted mean()[1:5], digits = 2)
+predictmeans(RAM, "Description",adj="BH")
+names(HARI1)                     
+print(HARI1) 
+print(HARI1$)
+print(hari$)
+
+
+amod <- aov(asine_paint ~ Description, data=shyam)
+library(agricolae)
+cd<- HSD.test(amod, "Description", group=TRUE)
+cd
+
+library(knitr)
+kable(cd[1:5], digits = 2)
