@@ -34,7 +34,19 @@ write.csv(shrisma,'C:/Users/vijay/Desktop/PROJECTS/Trichoderma_article/Invitro/F
 library(knitr)
 kable(shrisma[1:7], digits = 2)
 
+Interaction effects
+#For run 2
+geet<- lmer(Mycelium.growth.rate.mm.day. ~ Isolates+(Isolates:Wa)+(1|rep),  shyam)
+geet
+anova(geet)
+library(emmeans)
+library(agricolae)
+library(multcompView)
+library(multcomp)
 
+
+em <- emmeans(geet, ~Isolates:Wa)
+shrisma<-cld(em,Letters = c("abcdefghijklmnopqrstuvwxyz", LETTERS, letters), adjust="none")#unadjusted comparisons if all means are equivalent to using the LSD in standard anova situations, and very similar in generalized linear models
 
 rm()
 setwd("C:/Users/vijay/Desktop/Weed Experiment/Weed article")
