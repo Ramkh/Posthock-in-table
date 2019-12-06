@@ -1,3 +1,41 @@
+rm(list =ls())
+shyam<-read.table(file="clipboard",sep="\t", header = TRUE)
+shyam
+head(shyam)
+names(shyam)
+
+library(predictmeans)
+library(lme4)
+shyam$Sev3<-asin(sqrt(shyam$Sev/100))
+hist(shyam$Sev)
+hist(shyam$Sev3)
+hist(shyam$Paint_removed_.)
+library(car)
+
+bartlett.test(shyam$Sev ~ Exp,data = shyam)
+library(lmerTest)
+library(lme4)
+library(predictmeans)
+#For run 2
+RAM <- lmer(Sev3 ~ Isolates +(1 |Rep)+(1|Exp) , shyam)
+anova(RAM)
+library(emmeans)
+library(agricolae)
+library(multcompView)
+library(multcomp)
+r.aov <- aov(Sev3 ~ Isolates+Rep, data = shyam)
+
+em <- emmeans(RAM, ~Isolates)
+
+shrisma<-cld(em,Letters = c("abcdefghijklmnopqrstuvwxyz", LETTERS, letters), adjust="bonferroni", alpha=0.05)
+shrisma
+write.csv(shrisma,'C:/Users/vijay/Desktop/PROJECTS/Trichoderma_article/Invitro/Finalinvitro/forPCA\\cluroot_final.csv', row.names = FALSE)
+
+library(knitr)
+kable(shrisma[1:7], digits = 2)
+
+
+
 rm()
 setwd("C:/Users/vijay/Desktop/Weed Experiment/Weed article")
 shyam<-read.csv("Irismuck2.csv")
